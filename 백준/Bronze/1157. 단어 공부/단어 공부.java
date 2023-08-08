@@ -1,45 +1,28 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.io.*;
+import java.util.*;
 
-public class Main {
-	public static void main(String[] args) throws IOException {
-
+public class Main{
+    public static void main(String[] args)throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         String str = br.readLine().toUpperCase();
-
         int[] arr = new int[26];
-
-        int cnt = 0;
-
-        for(int i =0; i < 26; i++){
-
-            for(int j=0; j < str.length(); j++){
-
-                if(i+'A' == str.charAt(j)){
-                    arr[i] += ++cnt;
-                }
-                cnt = 0;
-            }
-
+        
+        for(int i=0; i < str.length(); i++){
+            arr[str.charAt(i) - 65]++;
         }
-       
-        int max = Arrays.stream(arr).max().getAsInt();
-        int maxIndex = 0;
-
-        for(int i=0; i < arr.length; i++){
-            if(arr[i] == max){
-                ++cnt;
-                maxIndex = i;
+        
+        int max = -1;
+        char ch = ' ';
+        for(int i=0; i< arr.length; i++){
+            if(arr[i] > max){
+                max = arr[i];
+                ch = (char)(i+65);
+            }else if(arr[i] == max){
+                ch = '?';
             }
         }
-
-        if(cnt >= 2){
-            System.out.println("?");
-        }else{
-            System.out.println((char)(maxIndex+ 'A'));
-        }
+        
+        System.out.println(ch);
+        br.close();
     }
 }
