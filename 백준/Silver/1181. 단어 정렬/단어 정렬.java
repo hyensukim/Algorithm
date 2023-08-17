@@ -24,15 +24,6 @@ public class Main{
 
         // 중복 제거
         StringBuilder sb = new StringBuilder();
-        /*for(int i=0; i < arr.length-1; i++){
-            if(arr[i].compareTo(arr[i+1]) == 0){
-                continue;
-            }else{
-                sb.append(arr[i]).append("\n");
-            }
-        }
-        */
-        
         sb.append(arr[0]).append('\n');
 		
 		for (int i = 1; i < N; i++) {
