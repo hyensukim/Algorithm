@@ -4,31 +4,29 @@ import java.util.*;
 public class Main{
     public static void main(String[] args)throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String S = br.readLine();
+        Stack<Character> stack = new Stack<>();
+        int pieces = 0;
+        
+        char[] chars = br.readLine().toCharArray();
         br.close();
         
-        int res = 0;
-        char[] chars = S.toCharArray();
-        Stack<Character> stack = new Stack<>();
-        
-        for(int i=0; i < chars.length; i++){
+        for(int i = 0; i < chars.length; i++){
             char ch = chars[i];
             if(ch == '('){
                 stack.push(ch);
                 continue;
             }
             
-            if(ch == ')'){
+            if(ch ==')'){
                 stack.pop();
                 
-                if(chars[i-1] == '('){
-                    res += stack.size();
+                if(chars[i-1] == ')'){
+                    pieces++;
                 }else{
-                    res++;
+                    pieces += stack.size();
                 }
             }
         }
-        
-        System.out.println(res);
+        System.out.println(pieces);
     }
 }
