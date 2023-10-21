@@ -2,31 +2,32 @@ import java.io.*;
 import java.util.*;
 
 public class Main{
-
     public static void main(String[] args)throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        String[] range = br.readLine().split(" ");
+        String[] arr = br.readLine().split(" ");
+        int M = Integer.parseInt(arr[0]);
+        int N = Integer.parseInt(arr[1]);
         br.close();
         
-        int M = Integer.parseInt(range[0]);
-        int N = Integer.parseInt(range[1]);
         boolean[] isPrime = new boolean[N+1];
         Arrays.fill(isPrime,true);
         isPrime[0] = isPrime[1] = false;
         
-        for(int i = 2; i < N; i++){
+        for(int i = 2; i <= Math.sqrt(N); i++){
             if(!isPrime[i]) continue;
             
-            for(int j = i * 2; j < isPrime.length; j += i){
+            for(int j = i *2; j <= N; j += i){
                 isPrime[j] = false;
             }
         }
         
         StringBuilder sb = new StringBuilder();
-        for(int i= M; i < isPrime.length; i++){
-            if(isPrime[i]) sb.append(i).append("\n");
-        }       
+        for(int i = M; i <= N; i++){
+            if(isPrime[i]){
+                sb.append(i).append("\n");
+            }
+        }
+        
         System.out.println(sb);
     }
 }
