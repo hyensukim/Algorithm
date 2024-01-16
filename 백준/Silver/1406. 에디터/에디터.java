@@ -1,57 +1,58 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Stack;
+
 public class Main{
-    public static void main(String[] args)throws IOException{
+    
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String initial = br.readLine();
+        int N = initial.length();
+        int M = Integer.parseInt(br.readLine());
         
-        // 커서 기준 L,R
-        Stack<Character> stackL = new Stack<>();
-        Stack<Character> stackR = new Stack<>();
-        String str = br.readLine();
+        StringBuilder sb = new StringBuilder();        
+        Stack<Character> prevStack = new Stack<>();
+        Stack<Character> nextStack = new Stack<>();
         
-        /* 처음 입력값 stack-L에 담기 */
-        for(char ch : str.toCharArray()){
-            stackL.push(ch);
+        for(int i = 0; i < N; i++){
+            prevStack.push(initial.charAt(i));
         }
         
-        int N = Integer.parseInt(br.readLine());
-        while(N-- > 0){
-            StringTokenizer st = new StringTokenizer(br.readLine()," ");
-            String command = st.nextToken();
-            if(command.equals("L")){
-                if(stackL.empty()) continue;
-                char ch = stackL.pop();
-                stackR.push(ch);
-            }
-            else if(command.equals("D")){
-                if(stackR.empty()) continue;
-                char ch = stackR.pop();
-                stackL.push(ch);
-            }
-            else if(!stackL.empty() && command.equals("B")){
-                stackL.pop();
-            }
-            else if(command.equals("P")){
-                char ch = st.nextToken().charAt(0);
-                stackL.push(ch);
+        for(int i = 0; i < M; i++){
+            String str = br.readLine();
+            char ch = str.charAt(0);
+
+            switch(String.valueOf(ch)){
+                case "L" : 
+                    if(prevStack.empty()){ break; }
+                    nextStack.push(prevStack.pop());
+                    break;
+                case "D" :
+                    if(nextStack.empty()){ break; }
+                    prevStack.push(nextStack.pop());
+                    break;
+                case "B" :
+                    if(prevStack.empty()){ break; }
+                    prevStack.pop();
+                    break;
+                case "P" :
+                    prevStack.push(str.charAt(2));
+                    break;
             }
         }
 
-        StringBuilder sb = new StringBuilder();
-
-        while(!stackL.empty()){
-            char ch = stackL.pop();
-            sb.append(ch);
-        }
+		while(!prevStack.empty()){
+			sb.append(prevStack.pop());
+		}
 
         sb.reverse();
 
-        while(!stackR.empty()){
-            char ch = stackR.pop();
-            sb.append(ch);
-        } 
+		while(!nextStack.empty()){
+			sb.append(nextStack.pop());
+		}
 
-        System.out.println(sb);
         br.close();
+        System.out.println(sb);
     }
 }
