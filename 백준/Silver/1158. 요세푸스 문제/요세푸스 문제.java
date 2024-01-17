@@ -23,8 +23,7 @@ public class Main{
             for(int i=0; i < K-1; i++){
                 q.offer(q.poll());
             }
-            Integer i = q.poll();
-            sb.append(i).append(", ");
+            sb.append(q.poll()).append(", ");
         }
         
         sb.replace(sb.length()-2,sb.length(),">");
