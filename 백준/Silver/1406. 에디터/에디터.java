@@ -43,11 +43,9 @@ public class Main{
         }
 
 		while(!prevStack.empty()){
-			sb.append(prevStack.pop());
-		}
-
-        sb.reverse();
-
+			nextStack.push(prevStack.pop());
+        }
+        
 		while(!nextStack.empty()){
 			sb.append(nextStack.pop());
 		}
