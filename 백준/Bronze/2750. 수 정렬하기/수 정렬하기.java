@@ -1,30 +1,43 @@
 import java.io.*;
-import java.util.*;
 
 public class Main{
-    public static void main(String[] args) throws IOException{
+    static int[] arr;
+    static int change;
+    public static void main(String[] args)throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         int N = Integer.parseInt(br.readLine());
-        int[] arr = new int[N];
         
+        arr = new int[N];
         for(int i=0; i < N; i++){
             arr[i] = Integer.parseInt(br.readLine());
         }
         
-        for(int i = 0; i < N-1; i++){
-            for(int j = 0; j < N-1-i;j++){
-                if(arr[j] > arr[j+1]){
-                    int tmp = arr[j+1];
-                    arr[j+1] = arr[j];
-                    arr[j] = tmp;
-                }
+        while(true){
+            change = 0;
+            for(int i=0; i < N-1; i++){
+                swap(i);
             }
+            if(change == 0) 
+                break;
+            else 
+                N--;
         }
         
-        for(int i = 0; i < arr.length; i++){
-            System.out.println(arr[i]);
+        for(int i=0; i < arr.length; i++){
+            sb.append(arr[i]).append("\n");
         }
         
         br.close();
+        System.out.println(sb);
+    }
+    
+    static void swap(int i){
+        if(arr[i] > arr[i+1]){
+            int tmp = arr[i];
+            arr[i] = arr[i+1];
+            arr[i+1] = tmp;
+            change++;
+        }
     }
 }
