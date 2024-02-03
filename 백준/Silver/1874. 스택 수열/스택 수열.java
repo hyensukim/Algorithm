@@ -6,7 +6,8 @@ public class Main{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
-        Stack<Integer> stack = new Stack<>();
+        int[] stack = new int[N];
+        int idx = 0;
         int start = 0;
         
         while(N-- > 0){
@@ -14,16 +15,17 @@ public class Main{
             
             if(value > start){
                 for(int i = start+1; i <= value; i++ ){
-                    stack.push(i);
+                    stack[idx] = i;
+                    idx++;
                     sb.append("+").append("\n");
                 }
                 start = value;
-            }else if(stack.peek() != value){
+            }else if(stack[idx-1] != value){
                 System.out.print("NO");
                 return;
             }
             
-            stack.pop();
+            idx--;
             sb.append("-").append("\n");
         }
         
