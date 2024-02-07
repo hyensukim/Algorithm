@@ -8,28 +8,37 @@ public class Main{
         StringBuilder sb = new StringBuilder();
         int N = Integer.parseInt(br.readLine());
         
+        // 입력
         arr = new int[N];
         for(int i=0; i < N; i++){
             arr[i] = Integer.parseInt(br.readLine());
         }
         
-        while(true){
-            change = 0;
-            for(int i=0; i < N-1; i++){
-                swap(i);
-            }
-            if(change == 0) 
-                break;
-            else 
-                N--;
-        }
+        // 버블 정렬
+        bubbleSort(N-1);
         
+        // 출력
         for(int i=0; i < arr.length; i++){
             sb.append(arr[i]).append("\n");
         }
-        
         br.close();
         System.out.println(sb);
+    }
+    
+    static void bubbleSort(int N){
+        change = 0;
+        
+        for(int i = 0; i < N; i++){
+            swap(i);
+        }
+        
+        if(change == 0) {
+            return;
+        }
+        else{
+            N--;
+            bubbleSort(N);
+        }
     }
     
     static void swap(int i){
