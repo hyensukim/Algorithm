@@ -23,7 +23,7 @@ public class Main{
         }
         
         max++;
-        
+                
         long min =0, mid = 0;
         
         while(min < max){
