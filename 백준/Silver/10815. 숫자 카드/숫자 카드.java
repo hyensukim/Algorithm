@@ -44,17 +44,13 @@ public class Main{
     
     static boolean binarySearch(int target){
         int start = 0;
-        int end = n - 1;
+        int end = n;
         
-        if(target < a[start] || target > a[end]){
-            return false;
-        }
-        
-        while(start <= end){
-            int middle = (start + end) / 2;
+        while(start < end){
+            int middle = start + (end - start) / 2;
             
             if(target < a[middle]){
-                end = middle - 1;
+                end = middle;
             }
             else if(target > a[middle]){
                 start = middle + 1;
