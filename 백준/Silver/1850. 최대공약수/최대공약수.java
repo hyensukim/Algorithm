@@ -11,11 +11,6 @@ public class Main {
 
         long b = Long.parseLong(st.nextToken());
 
-        if (a == 1 || b == 1 || Math.abs(a - b) == 1) {
-            System.out.println(1);
-            return;
-        }
-
         long result = gcd(b, a);
 
         StringBuilder sb = new StringBuilder();
