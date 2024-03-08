@@ -11,29 +11,26 @@ public class Main {
 
         int m = Integer.parseInt(st.nextToken());
 
-        long[] a = new long[n];
+        PriorityQueue<Long> q = new PriorityQueue<>();
 
         st = new StringTokenizer(br.readLine());
 
         br.close();
 
         for (int i = 0; i < n; i++) {
-            a[i] = Long.parseLong(st.nextToken());
+            q.offer(Long.parseLong(st.nextToken()));
         }
 
         for (int i = 0; i < m; i++) {
-            Arrays.sort(a);
-
-            long tmp = a[0] + a[1];
-
-            a[0] = tmp;
-
-            a[1] = tmp;
+            long tmp = q.poll() + q.poll();
+            q.offer(tmp);
+            q.offer(tmp);
         }
+        
         long sum = 0;
 
-        for (int i = 0; i < a.length; i++) {
-            sum += a[i];
+        while(!q.isEmpty()){
+            sum += q.poll();
         }
 
         System.out.println(sum);
