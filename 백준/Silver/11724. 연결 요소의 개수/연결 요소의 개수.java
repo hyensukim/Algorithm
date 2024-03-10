@@ -3,50 +3,61 @@ import java.util.*;
 
 public class Main{
     static boolean[] visited;
+    static ArrayList<Integer>[] graph;
     public static void main(String[] args)throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] str = br.readLine().split(" ");
-        int node = Integer.parseInt(str[0]);
-        int edge = Integer.parseInt(str[1]);
-        ArrayList<Integer>[] li = new ArrayList[node + 1]; // 인접 리스트
-        visited = new boolean[node + 1]; // 방문 배열
-        int linkedFactor = 0;
         
-        for(int i=1; i <= node; i++){
-            li[i] = new ArrayList<Integer>();
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        int n = Integer.parseInt(st.nextToken()); // 정점
+        
+        int m = Integer.parseInt(st.nextToken()); // 간선
+        
+        visited = new boolean[n+1]; // 방문 배열 초기화
+        
+         graph = new ArrayList[n+1]; // 인접 리스트
+        
+        for(int i=1; i<=n; i++){
+            graph[i] = new ArrayList<Integer>(); // 초기화
         }
         
-        for(int i=0; i < edge; i++){
-            str = br.readLine().split(" ");
-            int u = Integer.parseInt(str[0]);
-            int v = Integer.parseInt(str[1]);
-            li[u].add(v);
-            li[v].add(u);
+        // 인접 리스트에 그래프 값 초기화
+        for(int i=0; i<m; i++){
+            st = new StringTokenizer(br.readLine());
+            
+            int u = Integer.parseInt(st.nextToken());
+            
+            int v = Integer.parseInt(st.nextToken());
+            
+            graph[u].add(v);
+            
+            graph[v].add(u);
         }
-        br.close();
         
-        for(int i=1; i <= node; i++){
+        int result = 0;
+        
+        for(int i=1; i<=n; i++){
             if(!visited[i]){
-                linkedFactor++;
-                dfs(li, i);
+                result++;
+                dfs(i);
             }
         }
-        System.out.println(linkedFactor);
+        
+        br.close();
+        
+        System.out.println(result);
     }
     
-    static void dfs(ArrayList<Integer>[] li,int node){
-        if(visited[node])
+    static void dfs(int x){
+        if(visited[x])
             return;
         
-        visited[node] = true;
+        visited[x] = true;
         
-        if(li[node].isEmpty())
-            return;
-        
-        for(int j = 0; j < li[node].size(); j++){
-            int idx = li[node].get(j);
-            if(!visited[idx])
-                dfs(li,idx);
+        for(int f : graph[x]){
+            if(!visited[f]){
+                dfs(f);
+            }
         }
     }
 }
