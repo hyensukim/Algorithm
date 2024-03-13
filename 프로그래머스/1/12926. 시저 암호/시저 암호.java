@@ -8,7 +8,7 @@ class Solution {
             if(arr[i] >= 65 && arr[i] <= 90){ // 대문자
                 arr[i] += n;
                 
-                while(arr[i] > 90){
+                if(arr[i] > 90){
                     int tmp = arr[i] - 91;
                     arr[i] = (char)(65 + tmp);
                 }
@@ -16,7 +16,7 @@ class Solution {
             else if(arr[i] >= 97 && arr[i] <= 122){ //소문자
                 arr[i] += n;
                 
-                while(arr[i] > 122){
+                if(arr[i] > 122){
                     int tmp = arr[i] - 123;
                     arr[i] = (char)(97 + tmp);
                 }
