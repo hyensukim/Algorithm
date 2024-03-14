@@ -5,17 +5,27 @@ class Solution {
         
         int[] count = new int[3];
         
-        int[] supoja1 = {1,2,3,4,5};
+        int[][] supoja = new int[3][];
         
-        int[] supoja2 = {2,1,2,3,2,4,2,5};
+        supoja[0] = new int[]{1,2,3,4,5,1,2,3,4,5};
         
-        int[] supoja3 = {3,3,1,1,2,2,4,4,5,5};
+        supoja[1] = new int[]{2,1,2,3,2,4,2,5,2,1};
         
-       for(int i = 0; i < answers.length; i++){
-           if(answers[i] == supoja1[i % 5]) count[0]++;
-           if(answers[i] == supoja2[i % 8]) count[1]++;
-           if(answers[i] == supoja3[i % 10]) count[2]++;
-       }
+        supoja[2] = new int[]{3,3,1,1,2,2,4,4,5,5};
+        
+        for(int answer : answers){
+            for(int i=0; i<10; i++){
+                if(supoja[0][i] == answer){
+                    count[0]++;
+                }
+                else if(supoja[1][i] == answer){
+                    count[1]++;
+                }
+                else if(supoja[2][i] == answer){
+                    count[2]++;
+                }
+            }
+        }
         
         int max = Integer.MIN_VALUE;
         
