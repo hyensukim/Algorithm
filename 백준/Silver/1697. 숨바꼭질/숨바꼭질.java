@@ -1,43 +1,54 @@
 import java.util.*;
 import java.io.*;
+
 public class Main {
+    static int[] count;
+    static int n, k;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int k = Integer.parseInt(st.nextToken());
-        if (n == k) {
-            System.out.println(0);
-            return;
-        }
-        boolean[] visited = new boolean[100001];
-        visited[n] = true;
+
+        String[] sArr = br.readLine().split(" ");
+        n = Integer.parseInt(sArr[0]);
+        k = Integer.parseInt(sArr[1]);
+
+        count = new int[100_001];
+
+        bfs(n);
+
+        br.close();
+    }
+
+    static void bfs(int x) {
         Queue<Integer> q = new LinkedList<>();
-        q.add(n);
-        int size = q.size();
-        int count = 0;
-        while (true) {
-            count++;
-            size = q.size();
-            for (int i = 0; i < size; i++) {
-                int x = q.remove();
-                visited[x] = true;
-                if (x-1 == k || x+1 == k || x*2 == k) {
-                    System.out.println(count);
-                    return;
-                }
-                if (x-1 >= 0 && !visited[x-1]) {
-                    visited[x-1] = true;
-                    q.add(x-1);
-                }
-                if (x+1 <= 100000 && !visited[x+1]) {
-                    visited[x+1] = true;
-                    q.add(x+1);
-                }
-                if (x*2 <= 100000 && !visited[x*2]) {
-                    visited[x*2] = true;
-                    q.add(x*2);
-                }
+        q.offer(x);
+        count[x] = 0;
+        while (!q.isEmpty()) {
+            int num = q.poll();
+
+            //for (int i = 0; i <= k; i++) {
+                //System.out.print(count[i]);
+            //}
+            //System.out.println();
+
+            if (num == k) {
+                System.out.println(count[num]);
+                return;
+            }
+
+            if (num - 1 >= 0 && count[num - 1] == 0) {
+                count[num - 1] = count[num] + 1;
+                q.offer(num - 1);
+            }
+
+            if (num + 1 <= 100_000 && count[num + 1] == 0) {
+                count[num + 1] = count[num] + 1;
+                q.offer(num + 1);
+            }
+
+            if (num * 2 <= 100_000 && count[num * 2] == 0) {
+                count[num * 2] = count[num] + 1;
+                q.offer(num * 2);
             }
         }
     }
