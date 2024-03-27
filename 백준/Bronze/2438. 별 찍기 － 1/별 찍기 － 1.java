@@ -1,14 +1,15 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
- 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
-        Scanner sc = new Scanner(System.in);
-        StringBuffer sb = new StringBuffer();
-        int N = sc.nextInt();
+        StringBuilder sb = new StringBuilder();
+        
+        int N = Integer.parseInt(br.readLine());
+        
         for(int i=1; i<=N;i++){
-            for(int j=1;j<=i;j++){
+            for(int j=1; j<=i; j++){
                 sb.append("*");
             }
             sb.append("\n");
