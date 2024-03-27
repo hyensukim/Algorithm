@@ -1,19 +1,30 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main{
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-
-        int a= sc.nextInt();//주사위1
-        int b= sc.nextInt();//주사위2
-        int c= sc.nextInt();//주사위3
+    public static void main(String[] args)throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        String[] sArr = br.readLine().split(" ");
+        br.close();
+        
+        int dice1= Integer.parseInt(sArr[0]);
+        int dice2= Integer.parseInt(sArr[1]);
+        int dice3= Integer.parseInt(sArr[2]);
         int price = 0;
-
-        if(a == b && b == c){price = 10000 + a*1000;}
-        else if(a==b || a==c){price = 1000 + a*100;}
-        else if(b==c){price = 1000 + b*100;}
-        else{ price = a > b ? (a > c ? a*100 : c *100) : (b > c ? b*100 : c*100);}
-
+        
+        if(dice1 == dice2 && dice2 == dice3){
+            price = 10_000 + dice1 * 1_000;
+        }
+        else if(dice1 == dice2 || dice1 == dice3){
+            price = 1_000 + dice1 * 100;
+        }
+        else if(dice2 == dice3){
+            price = 1_000 + dice2 * 100;
+        }
+        else{
+            price = Math.max(dice1, Math.max(dice2,dice3)) * 100;
+        }
+        
         System.out.println(price);
     }
 }
