@@ -1,27 +1,37 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		String A = sc.next();
-		String B = sc.next();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		String strA = "";
-		String strB = "";
-		
-		for(int i=2; i>=0;i--){
-			char a = A.charAt(i);
-			strA += Character.toString(a);
+        String[] sArr = br.readLine().split(" ");
 
-			char b = B.charAt(i);
-			strB += Character.toString(b);
-		}
+        br.close();
 
-		int a = Integer.parseInt(strA);
-		int b = Integer.parseInt(strB);
+        String result = "";
 
-		int result = a > b ? a : b;
+        boolean isN1 = false;
+        for (int i = 2; i >= 0; i--) {
+            char n1 = sArr[0].charAt(i);
+            char n2 = sArr[1].charAt(i);
 
-		System.out.println(result);
-	}
+            if (n1 > n2) {
+                isN1 = true;
+                break;
+            } else if (n1 < n2) {
+                break;
+            }
+        }
+
+        StringBuilder sb;
+        if (isN1) {
+            sb = new StringBuilder(sArr[0]);
+            result = sb.reverse().toString();
+        } else {
+            sb = new StringBuilder(sArr[1]);
+            result = sb.reverse().toString();
+        }
+
+        System.out.println(result);
+    }
 }
