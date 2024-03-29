@@ -1,25 +1,26 @@
 import java.io.*;
-import java.util.*;
 
-public class Main{
-    public static void main(String[] args) throws IOException{
+public class Main {
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String a1A0 = br.readLine();
-        StringTokenizer st = new StringTokenizer(a1A0," ");
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int a1 = Integer.parseInt(st.nextToken());
-        int a0 = Integer.parseInt(st.nextToken());
+        String[] sArr = br.readLine().split(" ");
+
+        int a1 = Integer.parseInt(sArr[0]);
+        int a0 = Integer.parseInt(sArr[1]);
         int c = Integer.parseInt(br.readLine());
-        int n0 = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
 
-        boolean is1 = ((a1 * n0) + a0) <= (c * n0);
-        boolean cBetterA1 = a1 <= c;
-        if(is1 && cBetterA1){
+        if (a1 <= c && 0 <= (c - a1) * n - a0) {
             System.out.println(1);
-        }else{
+        } else {
             System.out.println(0);
         }
 
         br.close();
+        bw.flush();
+        bw.close();
     }
 }
