@@ -45,7 +45,7 @@ public class Main {
                             turnSwitch(front);
                             turnSwitch(back);
                         } else {
-                            break;
+                            break; // 추가
                         }
 
                         index++;
@@ -56,7 +56,7 @@ public class Main {
 
         for (int i = 1; i <= n; i++) {
             sb.append(status[i]).append(" ");
-            if (i % 20 == 0) {
+            if (i % 20 == 0) { // 추가
                 sb.deleteCharAt(sb.length() - 1);
                 sb.append("\n");
             }
