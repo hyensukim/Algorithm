@@ -1,49 +1,40 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
-    static int[] arr;
-    public static void main(String[] args)throws IOException{
+/**
+ * 1. 문제 파악
+ * 줄은 1~N(순서 i, 걸린시간 Pi) 입니다.
+ * 해당 i번째 사람이 인출 시걸리는 시간은 Pi의 누적합입니다.
+ * 돈을 인출하는데 걸리는 시간의 합의 최솟값을 구하라는 문제입니다.
+ * 
+ * N : 1~1000, Pi : 1~1000
+ * 
+ * 2. 접근 방법
+ * PriorityQueue 상에 오름차순으로 담아서 i번째까지 걸린 시간Pi를 구해줍니다. O(logN)
+ * 각 걸린시간을 sum이라는 결과에 합쳐줍니다.
+ */
+public class Main {
+    public static void main(String[] args)throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        int N = Integer.parseInt(br.readLine());
-        
+
+        Queue<Integer> pq = new PriorityQueue<>();
+
+        int n = Integer.parseInt(br.readLine()); // 줄 갯수
+
         StringTokenizer st = new StringTokenizer(br.readLine());
-        
-        // 입력 초기화
-        arr = new int[N]; // 시간들
-        for(int i=0; i < N; i++){
-            arr[i] = Integer.parseInt(st.nextToken());
+        for(int i=0; i<n; i++){
+            pq.offer(Integer.parseInt(st.nextToken()));
         }
 
-        // 삽입 정렬
-        int value = 0;
-        for(int i=1; i < N; i++){
-            for(int j=0; j < i; j++){
-                if(arr[i] < arr[j]){
-                    value = arr[i];
-                    shift(j,i);
-                    arr[j] = value;
-                }
-            }
+        long sum = 0;
+        long sub_sum = 0;
+        while(!pq.isEmpty()){
+            sub_sum +=pq.poll();
+            sum += sub_sum;
         }
 
-        // 시간누적합 구하기
-        int sum = 0; // 시간의 합 (pi)
-        for(int i=1; i <= N; i++){
-            for(int j=0; j < i; j++){
-                sum += arr[j];
-            }
-        }
-        
-        // 출력
         br.close();
+
         System.out.println(sum);
-    }
-    
-    static void shift(int start, int end){
-        for(int i= end-1; i >= start; i--){
-            arr[i+1] = arr[i];
-        }
     }
 }
