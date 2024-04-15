@@ -23,8 +23,7 @@ public class Main {
             }
             return;
         }
-        // // T에 포함되어 있지 않다면 더 이상 진행하지 않음
-        if (!T.contains(s) && !T.contains(new StringBuilder(s).reverse().toString())) {
+        else if(!T.contains(s) && !T.contains(new StringBuilder(s).reverse().toString())) {
             return;
         }
 
