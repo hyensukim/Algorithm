@@ -150,4 +150,8 @@ Empty
 </tbody>
       </table>
 
+### 주의사항
+
+- ORDER BY 절과 GROUP BY 절을 함께 사용 시, ORDER BY 절이 GROUP BY절 보다 무조건 아래에 있어야 한다.
+
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
