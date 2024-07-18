@@ -135,5 +135,7 @@ Empty
 
 <p><code>DATE_OF_BIRTH</code>의 데이트 포맷이 예시와 동일해야 정답처리 됩니다.</p>
 
+### 참고 사항
+IF(), IFNULL() 등의 함수를 사용하는 방법에 대해 [공식 문서](https://dev.mysql.com/doc/refman/8.4/en/flow-control-functions.html) 참고
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
