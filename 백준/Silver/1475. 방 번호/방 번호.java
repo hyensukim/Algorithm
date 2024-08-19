@@ -5,10 +5,10 @@ import java.io.BufferedReader;
 public class Main{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        char[] chars = br.readLine().toCharArray();
+        
         int[] nums = new int[10];
         
-        for(char ch : chars) {
+        for(char ch : br.readLine().toCharArray()) {
             nums[ch-48]++;
         }
         
@@ -16,7 +16,7 @@ public class Main{
         for(int i = 0; i < 10; i++){
             if(res < nums[i]){
                 if(i == 6 || i == 9){
-                    res = (int)Math.ceil((nums[6] + nums[9]) / 2F);
+                    res = (int)Math.ceil((nums[6] + nums[9]) / 2.0);
                 } else {
                     res = nums[i];
                 }
