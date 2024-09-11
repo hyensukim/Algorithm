@@ -1,56 +1,54 @@
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.Stack;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.StringTokenizer;
 
-public class Main{
-    
-    public static void main(String[] args) throws IOException{
+public class Main {
+    public static void main(String[] args)throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String initial = br.readLine();
-        int N = initial.length();
-        int M = Integer.parseInt(br.readLine());
-        
-        StringBuilder sb = new StringBuilder();        
-        Stack<Character> prevStack = new Stack<>();
-        Stack<Character> nextStack = new Stack<>();
-        
-        for(int i = 0; i < N; i++){
-            prevStack.push(initial.charAt(i));
+        String str = br.readLine();
+
+        List<String> list = new LinkedList<>();
+        for(char ch : str.toCharArray()) {
+            String separatedStr = String.valueOf(ch);
+            list.add(separatedStr);
         }
         
-        for(int i = 0; i < M; i++){
-            String str = br.readLine();
-            char ch = str.charAt(0);
-
-            switch(String.valueOf(ch)){
+        int nums = Integer.parseInt(br.readLine());
+        ListIterator<String> iter = list.listIterator(list.size());
+        for(int i=0; i<nums; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            String command = st.nextToken();
+            switch(command) {
                 case "L" : 
-                    if(prevStack.empty()){ break; }
-                    nextStack.push(prevStack.pop());
+                    if(iter.hasPrevious()) {
+                        iter.previous();
+                    } 
                     break;
                 case "D" :
-                    if(nextStack.empty()){ break; }
-                    prevStack.push(nextStack.pop());
+                    if(iter.hasNext()) {
+                        iter.next();
+                    } 
                     break;
                 case "B" :
-                    if(prevStack.empty()){ break; }
-                    prevStack.pop();
+                    if(iter.hasPrevious()) {
+                        iter.previous();
+                        iter.remove();
+                    }
                     break;
-                case "P" :
-                    prevStack.push(str.charAt(2));
-                    break;
+                default :
+                    iter.add(st.nextToken());
             }
         }
-
-		while(!prevStack.empty()){
-			nextStack.push(prevStack.pop());
-        }
         
-		while(!nextStack.empty()){
-			sb.append(nextStack.pop());
-		}
-
+        StringBuilder sb = new StringBuilder();
+        for(String s : list) {
+            sb.append(s);
+        }
+        System.out.println(sb.toString());
         br.close();
-        System.out.println(sb);
     }
 }
