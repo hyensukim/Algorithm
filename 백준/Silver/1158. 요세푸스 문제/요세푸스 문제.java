@@ -12,7 +12,7 @@ public class Main{
     public static void main(String[] args)throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("<");
         List<Integer> list = new ArrayList<>();
         Queue<Integer> answer = new LinkedList<>();
         int N = Integer.parseInt(st.nextToken());
@@ -27,14 +27,11 @@ public class Main{
             answer.add(list.remove(idx));
         }
 
-        sb.append("<");
-        while (!answer.isEmpty()) {
+        while(answer.size() > 1) {
             sb.append(answer.poll());
-            if (!answer.isEmpty()) {
-                sb.append(", ");
-            }
+            sb.append(", ");
         }
-        sb.append(">");
+        sb.append(answer.poll()).append(">");
         System.out.println(sb);
     }
 }
