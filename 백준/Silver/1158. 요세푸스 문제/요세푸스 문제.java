@@ -20,7 +20,6 @@ public class Main{
         
         int k = Integer.parseInt(st.nextToken());
         while(q.size() > 1){
-            
             if(q.peek() == null){
                 break;
             }
