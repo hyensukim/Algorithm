@@ -18,8 +18,9 @@ public class Main{
             q.offer(i);
         }
         
+        Queue<Integer> answer = new LinkedList<>();
         int k = Integer.parseInt(st.nextToken());
-        while(q.size() > 1){
+        while(!q.isEmpty()){
             if(q.peek() == null){
                 break;
             }
@@ -28,13 +29,15 @@ public class Main{
                 q.offer(q.poll());
             }
             
-            sb.append(q.poll());
-            sb.append(", ");
+            answer.offer(q.poll());
         }
         br.close();
         
-        sb.append(q.poll()).append(">");
-        
+        while(answer.size() > 1) {
+            sb.append(answer.poll());
+            sb.append(", ");
+        }
+        sb.append(answer.poll()).append(">");
         System.out.println(sb.toString());
     }
 }
