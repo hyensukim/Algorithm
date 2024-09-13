@@ -16,8 +16,8 @@ public class Main{
         List<Integer> list = new ArrayList<>();
         Queue<Integer> answer = new LinkedList<>();
         int n = Integer.parseInt(st.nextToken());
-        for (int i=0; i<n; i++) {
-            list.add(i+1);
+        for (int i=1; i<=n; i++) {
+            list.add(i);
         }
         int k = Integer.parseInt(st.nextToken());
         int idx = 0;
