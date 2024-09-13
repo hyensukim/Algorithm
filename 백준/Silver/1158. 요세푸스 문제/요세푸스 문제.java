@@ -15,18 +15,16 @@ public class Main{
         StringBuilder sb = new StringBuilder("<");
         List<Integer> list = new ArrayList<>();
         Queue<Integer> answer = new LinkedList<>();
-        int N = Integer.parseInt(st.nextToken());
-        for (int i=0; i<N; i++) {
+        int n = Integer.parseInt(st.nextToken());
+        for (int i=0; i<n; i++) {
             list.add(i+1);
         }
-        int K = Integer.parseInt(st.nextToken());
-
+        int k = Integer.parseInt(st.nextToken());
         int idx = 0;
         while (!list.isEmpty()) {
-            idx = (idx+K-1)%list.size();
+            idx = (idx+k-1)%list.size();
             answer.add(list.remove(idx));
         }
-
         while(answer.size() > 1) {
             sb.append(answer.poll());
             sb.append(", ");
