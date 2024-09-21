@@ -1,45 +1,46 @@
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-// 60분 초과
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-
-        Stack<Tower> stack = new Stack<>();
-
+        
         int n = Integer.parseInt(br.readLine());
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        for (int i = 0; i < n; i++) {
-            int now = Integer.parseInt(st.nextToken());
-
-            while (!stack.empty() && stack.peek().height < now) {
-                stack.pop();
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        
+        Tower[] towers = new Tower[n];
+        int top = -1; // 스택의 top을 가리키는 인덱스
+        
+        for (int i = 1; i <= n; i++) {
+            int value = Integer.parseInt(st.nextToken());
+            
+            while (top >= 0 && value > towers[top].high) {
+                top--;
             }
-
-            if (stack.empty()) {
+            
+            if (top == -1) {
                 sb.append(0).append(" ");
             } else {
-                sb.append(stack.peek().index).append(" ");
+                sb.append(towers[top].idx).append(" ");
             }
-
-            stack.push(new Tower(i + 1, now));
+            
+            towers[++top] = new Tower(i, value);
         }
-
-        br.close();
-
+        
         System.out.println(sb);
+        br.close();
     }
 }
 
 class Tower {
-    public int index;
-    public int height;
-
-    public Tower(int index, int height) {
-        this.index = index;
-        this.height = height;
+    public int idx;
+    public int high;
+    
+    public Tower(int idx, int high) {
+        this.idx = idx;
+        this.high = high;
     }
 }
