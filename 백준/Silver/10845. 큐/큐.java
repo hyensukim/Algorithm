@@ -16,32 +16,33 @@ public class Main {
         while(N-- > 0) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             String command = st.nextToken();
+            int size = queue.size();
             switch(command) {
                 case "push" :
                     int value = Integer.parseInt(st.nextToken());
                     queue.offer(value); break;
                 case "pop" :
-                    if(queue.isEmpty()) {
-                        sb.append(-1).append("\n");
-                    } else {
+                    if(size > 0) {
                         sb.append(queue.poll()).append("\n");
+                    } else {
+                        sb.append(-1).append("\n");
                     } break;
                 case "size" :
-                    sb.append(queue.size()).append("\n"); break;
+                    sb.append(size).append("\n"); break;
                 case "empty" :
-                    if(queue.isEmpty()) {
-                        sb.append(1).append("\n");
-                    } else {
+                    if(size > 0) {
                         sb.append(0).append("\n");
+                    } else {
+                        sb.append(1).append("\n");
                     } break;
                 case "front" :
-                    if(!queue.isEmpty()) {
+                    if(size > 0) {
                         sb.append(queue.peekFirst()).append("\n");
                     } else {
                         sb.append(-1).append("\n");
                     } break;
                 default :
-                    if(!queue.isEmpty()) {
+                    if(size > 0) {
                         sb.append(queue.peekLast()).append("\n");
                     } else {
                         sb.append(-1).append("\n");
