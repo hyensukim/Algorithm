@@ -1,46 +1,61 @@
 import java.io.IOException;
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.BufferedReader;
+
 import java.util.StringTokenizer;
-import java.util.LinkedList;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 public class Main{
-    public static void main(String[] args)throws IOException{
+    public static void main(String[] args)throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
         
-        LinkedList<Integer> li = new LinkedList<>();
+        int N = Integer.parseInt(br.readLine());
+        Deque<Integer> que = new ArrayDeque<>();
+        
         while(N-- > 0){
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            String str = st.nextToken();
-            switch(str){
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            String command = st.nextToken();
+            switch(command) {
                 case "push" :
-                    li.add(Integer.parseInt(st.nextToken()));
+                    int push = Integer.parseInt(st.nextToken());
+                    que.offer(push);
                     break;
-                case "pop" :
-                    if(li.isEmpty()) sb.append(-1);
-                    else sb.append(li.poll());
+                case  "pop" :
+                    if(que.isEmpty()){
+                        sb.append(-1).append("\n");
+                    } else{
+                        int pop = que.poll();
+                        sb.append(pop).append("\n");   
+                    }
                     break;
-                case "size":
-                    sb.append(li.size());
+                case "size" :
+                    int size = que.size();
+                    sb.append(size).append("\n");
                     break;
                 case "empty" :
-                    if(li.isEmpty()) sb.append(1);
-                    else sb.append(0);
+                    if(que.isEmpty()) {
+                        sb.append(1).append("\n");
+                    } else {
+                        sb.append(0).append("\n");
+                    }
                     break;
                 case "front" :
-                    if(li.isEmpty()) sb.append(-1);
-                    else sb.append(li.peekFirst());
+                    if(que.isEmpty()) {
+                        sb.append(-1).append("\n");
+                    } else {
+                        int front = que.peekFirst();
+                        sb.append(front).append("\n");
+                    }
                     break;
-                case "back":
-                    if(li.isEmpty()) sb.append(-1);
-                    else sb.append(li.peekLast());
-                    break;
-            }
-            
-            if(!str.equals("push")){
-                sb.append("\n");
+                default :
+                    if(que.isEmpty()) {
+                        sb.append(-1).append("\n");
+                    } else {
+                        int last = que.peekLast();
+                        sb.append(last).append("\n");
+                    }
             }
         }
         br.close();
