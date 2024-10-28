@@ -1,8 +1,18 @@
-SELECT
-    category,
-    SUM(BS.sales) total_sales
-FROM book_sales BS
-JOIN book B ON BS.book_id = B.book_id
-WHERE BS.sales_date LIKE "2022-01%"
-GROUP BY category
-ORDER BY B.category;
+# SELECT
+#     category,
+#     SUM(BS.sales) total_sales
+# FROM book_sales BS
+# JOIN book B ON BS.book_id = B.book_id
+# WHERE BS.sales_date LIKE "2022-01%"
+# GROUP BY category
+# ORDER BY B.category;
+
+SELECT B.CATEGORY CATEGORY, SUM(S.SALES) TOTAL_SALES
+FROM BOOK_SALES S
+JOIN BOOK B 
+    ON S.BOOK_ID = B.BOOK_ID
+WHERE YEAR(S.SALES_DATE) = 2022 AND MONTH(S.SALES_DATE) = 1
+GROUP BY CATEGORY
+ORDER BY CATEGORY ASC;
+
+    
