@@ -1,67 +1,56 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-public class Main {
-    static int m, n;
+public class Main{
+    static int[][] graph;
     static boolean[][] visited;
-    static boolean[][] area;
-    static int[] dr = { -1, 1, 0, 0 };
-    static int[] dc = { 0, 0, -1, 1 };
-
-    public static void main(String[] args) throws IOException {
+    
+    public static void main(String[] args)throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        StringBuilder sb = new StringBuilder();
-
-        int t = Integer.parseInt(br.readLine());
-
-        StringTokenizer st;
-
-        while (t-- > 0) {
-            st = new StringTokenizer(br.readLine());
-            m = Integer.parseInt(st.nextToken()); // 가로
-            n = Integer.parseInt(st.nextToken()); // 세로
-            area = new boolean[n][m];
-            visited = new boolean[n][m];
-
-            int k = Integer.parseInt(st.nextToken()); // 배추 갯수
-
-            int count = 0;
-            for (int i = 0; i < k; i++) {
+        int T = Integer.parseInt(br.readLine());
+        while(T-- > 0){
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+            int count = Integer.parseInt(st.nextToken());
+            graph = new int[x][y];
+            visited = new boolean[x][y];
+            
+            for(int i=0; i<count; i++){
                 st = new StringTokenizer(br.readLine());
-                int x = Integer.parseInt(st.nextToken());
-                int y = Integer.parseInt(st.nextToken());
-
-                area[y][x] = true;
+                int row = Integer.parseInt(st.nextToken());
+                int col = Integer.parseInt(st.nextToken());
+                graph[row][col] = 1;
             }
-
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    if (!visited[i][j] && area[i][j]) {
-                        count++;
-                        dfs(i, j);
+            
+            int result = 0;
+            for(int i=0; i<x; i++){
+                for(int j=0; j<y; j++){
+                    if(graph[i][j] == 1 && !visited[i][j]){
+                        dfs(i,j);
+                        result++;
                     }
                 }
             }
-            sb.append(count).append("\n");
+            
+            System.out.println(result);
         }
-
-        br.close();
-
-        System.out.println(sb);
     }
-
-    static void dfs(int c, int r) {
-        visited[c][r] = true;
-        for (int i = 0; i < 4; i++) {
-            int row = dr[i] + r;
-            int col = dc[i] + c;
-
-            if (row < 0 || col < 0 || row >= m || col >= n)
+    
+    static int[] dx = {1,-1,0,0};
+    static int[] dy = {0,0,1,-1};
+    public static void dfs(int x, int y){
+        visited[x][y] = true;
+        for(int i=0; i<4; i++){
+            int row = x + dx[i];
+            int col = y + dy[i];
+            if(row < 0 || col < 0 || graph.length <= row || graph[0].length <= col){
                 continue;
-
-            if (!visited[col][row] && area[col][row]) {
-                dfs(col, row);
+            }
+            if(!visited[row][col] && graph[row][col] == 1){
+                dfs(row,col);
             }
         }
     }
