@@ -52,7 +52,7 @@ public class Main {
         for(int i=0; i<4; i++){
             int row = x + dx[i];
             int col = y + dy[i];
-            if(row <0 || col<0 || row >= graph.length || col >= graph[row].length){
+            if(row <0 || col<0 || row >= graph.length || col >= graph[0].length){
                 continue;
             }
             if(graph[row][col] == 1 && !visited[row][col]){
