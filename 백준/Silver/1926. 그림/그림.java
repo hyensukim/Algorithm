@@ -1,89 +1,64 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Main {
-    static int[] dx = { 1, 0, -1, 0 };
-    static int[] dy = { 0, 1, 0, -1 };
+    static int[][] graph;
     static boolean[][] visited;
-    static int[][] paper;
-    static int n, m;
-    static int depth;
-
+    static List<Integer> areas;
+    
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        String[] s = br.readLine().split(" ");
-
-        n = Integer.parseInt(s[0]); // 열
-
-        m = Integer.parseInt(s[1]); // 행
-
-        visited = new boolean[n][m]; // 방문 배열
-
-        paper = new int[n][m]; // 도화지
-
-        ArrayList<Integer> draws = new ArrayList<>();
-
-        boolean isZero = true;
-
-        for (int i = 0; i < n; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < m; j++) {
-                paper[i][j] = Integer.parseInt(st.nextToken());
-
-                if (isZero && paper[i][j] == 1) {
-                    isZero = false;
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int x = Integer.parseInt(st.nextToken());
+        int y = Integer.parseInt(st.nextToken());
+        graph = new int[x][y];
+        visited = new boolean[x][y];
+        
+        for(int i=0; i<x; i++){
+            st = new StringTokenizer(br.readLine());
+            for(int j=0; j<y; j++){
+                graph[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+        
+        int paintCount = 0;
+        areas = new ArrayList<>();
+        for(int i=0; i<x; i++){
+            for(int j=0; j<y; j++){
+                if(graph[i][j] == 1 && !visited[i][j]){
+                    areas.add(dfs(i,j,0));
+                    paintCount++;
                 }
             }
         }
-
-        if (isZero) {
-            System.out.println(0);
-            System.out.println(0);
-            return;
+        
+        int maxArea = 0;
+        for(int area : areas){
+            maxArea = maxArea > area ? maxArea : area;
         }
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (paper[i][j] != 0 && !visited[i][j]) {
-                    depth = 0;
-                    dfs(i, j);
-                    draws.add(depth);
-                }
-            }
-        }
-
-        br.close();
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(draws.size()).append("\n");
-
-        int max = 0;
-
-        for (int i = 0; i < draws.size(); i++) {
-            if (max < draws.get(i))
-                max = draws.get(i);
-        }
-
-        sb.append(max).append("\n");
-
-        System.out.println(sb);
+        System.out.printf("%d\n%d", paintCount, maxArea);
     }
-
-    static void dfs(int col, int row) {
-        visited[col][row] = true;
-        depth++;
-
-        for (int i = 0; i < 4; i++) {
-            int c = col + dy[i];
-            int r = row + dx[i];
-
-            if (c < 0 || c >= n || r < 0 || r >= m)
+    
+    static int[] dx = {1,-1,0,0};
+    static int[] dy = {0,0,1,-1};
+    static int dfs(int x, int y, int area) {
+        visited[x][y] = true;
+        area++;
+        for(int i=0; i<4; i++){
+            int row = x + dx[i];
+            int col = y + dy[i];
+            if(row <0 || col<0 || row >= graph.length || col >= graph[row].length){
                 continue;
-
-            if (paper[c][r] != 0 && !visited[c][r])
-                dfs(c, r);
+            }
+            if(graph[row][col] == 1 && !visited[row][col]){
+                area = dfs(row,col,area);
+            }
         }
+        return area;
     }
 }
