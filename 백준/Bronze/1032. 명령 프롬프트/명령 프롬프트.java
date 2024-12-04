@@ -15,9 +15,9 @@ public class Main{
         }
         
         boolean[] sameArr = new boolean[files[0].length()];
-        Arrays.fill(sameArr,true);
         for(int i=0; i<files[0].length(); i++){
             char ch = files[0].charAt(i);
+            sameArr[i] = true;
             for(int j=1; j<N; j++){
                 if(ch != files[j].charAt(i)){
                     sameArr[i] = false;
