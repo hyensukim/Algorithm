@@ -1,32 +1,32 @@
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
+import java.util.Arrays;
 
 public class Main{
     public static void main(String[] args)throws IOException{
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder out = new StringBuilder();
         int N = Integer.parseInt(in.readLine());
+        String[] files = new String[N];
         
-        if(N == 1){
-            System.out.print(in.readLine());
-            return;
+        for(int i=0; i<N; i++){
+            files[i] = in.readLine();
         }
         
-        char[] charArr = in.readLine().toCharArray();
-        int[] isSame = new int[charArr.length];
-        for(int i=0; i<N-1; i++){
-            char[] chs = in.readLine().toCharArray();
-            for(int j=0; j<chs.length; j++){
-                if(chs[j] == charArr[j]){
-                    isSame[j]++;
+        boolean[] sameArr = new boolean[files[0].length()];
+        Arrays.fill(sameArr,true);
+        for(int i=0; i<files[0].length(); i++){
+            char ch = files[0].charAt(i);
+            for(int j=1; j<N; j++){
+                if(ch != files[j].charAt(i)){
+                    sameArr[i] = false;
+                    break;
                 }
             }
-        }
-        
-        for(int i=0; i<isSame.length; i++){
-            if(isSame[i] == N-1){
-                out.append(charArr[i]);
+            
+            if(sameArr[i]){
+                out.append(ch);
             } else {
                 out.append("?");
             }
